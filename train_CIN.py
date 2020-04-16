@@ -207,7 +207,7 @@ for mm in range(num_classes):
     lr_auc.append(auc(rec, pre))
 
 lr_f1 = f1_score(gt, pr, average='weighted')
-print('## === Dataset Evaluation Results ===')
+print('## === Dataset Evaluation Metrics ===')
 print(f'AUC: {np.mean(lr_auc):0.4f}\nAccuracy: {correct / len(test_loader.dataset):0.4f}\nPrecision: {precision:0.4f}\nRecall: {recall:0.4f} \nF1-score: {lr_f1:0.4f}')
 
 print(f'Confusion Matrix:\n {confusion_matrix(gt, pr)}')
