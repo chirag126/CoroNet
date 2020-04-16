@@ -19,7 +19,7 @@ This repository is built using PyTorch. You can install the necessary libraries 
 
 **Note:** We ran our codes using PyTorch=1.0.0 with CUDA 9.0.
 
-## Dataset
+## 2. Dataset
 We used the dataset provided by [COVID-Net](https://github.com/lindawangg/COVID-Net/). All the steps of data preparation and generation steps are followed as described in their [README](https://github.com/lindawangg/COVID-Net/blob/master/README.md). The dataset was created by combining different open source chest radiography datasets such as:
 * https://github.com/ieee8023/covid-chestxray-dataset
 * https://github.com/agchung/Figure1-COVID-chestxray-dataset
@@ -34,7 +34,7 @@ Our dataset distribution:
 |  Training  	|   7966  	|         8521        	|    89    	|
 |   Testing  	|   885   	|         1058        	|    10    	|
 
-## 2. Usage
+## 3. Usage
 The training and testing scripts for the Feature Pyramid AutoEncoder (FPAE) and the Covid-19 Identification Network (CIN) are in [train_FPAE.py](train_FPAE.py), and [train_CIN.py](train_CIN.py). The shell script for training the FPAE models are given and can be ran as follow.
 
 ### Examples
@@ -45,12 +45,12 @@ Training individual FPAE models for Healthy and non-COVID Pneumonia images
  
 Sample Original, Reconstructed and Residual Image from a Healthy FPAE
 <p align="center">
-    <img src="./label_0_FPAE.png" width=750px>
+    <img src="./label_0_FPAE.png" width=500px>
 </p>
 
 Sample Original, Reconstructed and Residual Image from a non-COVID Pneumonia FPAE
 <p align="center">
-    <img src="./label_1_FPAE.png" width=750px>
+    <img src="./label_1_FPAE.png" width=500px>
 </p>
 
 Running [train_CIN.py](train_CIN.py) in the pretrained mode generates the following results:
