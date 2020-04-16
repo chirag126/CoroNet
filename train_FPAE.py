@@ -4,20 +4,12 @@ import sys
 import glob
 import time
 import ipdb
-import pydicom
-import numpy as np
-import matplotlib.pyplot as plt
-from FPAE import *
-from models import *
-import numpy as np # matrix tools
-import pandas as pd
-import matplotlib.pyplot as plt # for basic plots
-import time
-import os
-import math
 import torch
+import numpy as np
+from FPAE import *
 import torch.nn as nn
 import torch.utils.data
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from torchvision.datasets import ImageFolder
 from torchvision.transforms import ToTensor
