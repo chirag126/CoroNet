@@ -127,7 +127,7 @@ def test(test_loader, model, label=0):
           plt.subplot(133)
           plt.imshow((img - output.detach()).squeeze().cpu().numpy())
           plt.axis('off')          
-          plt.title('Difference')          
+          plt.title('Residual')          
           plt.savefig(f'./label_{label}_FPAE.png')
           break
           
