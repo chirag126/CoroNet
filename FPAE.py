@@ -6,21 +6,20 @@ import torch.utils.data
 class FPN_Gray(nn.Module):
     def __init__(self):
         super(FPN_Gray, self).__init__()
-        # self.name = "AEFPNC_Gray"
         self.bn0 = nn.BatchNorm2d(1)
-        self.conv1 = nn.Conv2d(in_channels=1, out_channels=8, kernel_size=3, padding=1)  # 1x256x256 -> 16x256x256
+        self.conv1 = nn.Conv2d(in_channels=1, out_channels=8, kernel_size=3, padding=1)
         self.bn1 = nn.BatchNorm2d(num_features=8)
-        self.conv2 = nn.Conv2d(in_channels=8, out_channels=16, kernel_size=3, padding=1)  # 16x256x256  -> 32x256x256
+        self.conv2 = nn.Conv2d(in_channels=8, out_channels=16, kernel_size=3, padding=1)
         self.bn2 = nn.BatchNorm2d(num_features=16)
-        self.conv3 = nn.Conv2d(in_channels=16, out_channels=32, kernel_size=3, padding=1)  # 32x256x256 -> 64x256x256
+        self.conv3 = nn.Conv2d(in_channels=16, out_channels=32, kernel_size=3, padding=1)
         self.bn3 = nn.BatchNorm2d(num_features=32)
-        self.conv4 = nn.Conv2d(in_channels=32, out_channels=24, kernel_size=3, padding=1)  # 64x256x256 -> 48x256x256
+        self.conv4 = nn.Conv2d(in_channels=32, out_channels=24, kernel_size=3, padding=1)
         self.bn4 = nn.BatchNorm2d(num_features=24)
-        self.conv5 = nn.Conv2d(in_channels=24, out_channels=16, kernel_size=3, padding=1)  # 48x256x256 -> 32x256x256
+        self.conv5 = nn.Conv2d(in_channels=24, out_channels=16, kernel_size=3, padding=1)
         self.bn5 = nn.BatchNorm2d(num_features=16)
-        self.conv6 = nn.Conv2d(in_channels=16, out_channels=12, kernel_size=3, padding=1)  # 32x256x256 -> 24x256x256
+        self.conv6 = nn.Conv2d(in_channels=16, out_channels=12, kernel_size=3, padding=1)
         self.bn6 = nn.BatchNorm2d(num_features=12)
-        self.conv7 = nn.Conv2d(in_channels=12, out_channels=8, kernel_size=3, padding=1)  # 24x256x256 -> 16x256x256
+        self.conv7 = nn.Conv2d(in_channels=12, out_channels=8, kernel_size=3, padding=1)
         self.bn7 = nn.BatchNorm2d(num_features=8)
         self.down = nn.Conv2d(in_channels=32, out_channels=32, kernel_size=3, padding=1, stride=2)
         self.conv_smooth1 = nn.Conv2d(in_channels=32, out_channels=16, kernel_size=3, padding=1)
@@ -35,7 +34,6 @@ class FPN_Gray(nn.Module):
         self.convtrans5 = nn.ConvTranspose2d(in_channels=32, out_channels=16, kernel_size=3, padding=1)
         self.convtrans6 = nn.ConvTranspose2d(in_channels=16, out_channels=8, kernel_size=3, padding=1)
         self.convtrans7 = nn.ConvTranspose2d(in_channels=8, out_channels=1, kernel_size=3, padding=1)
-#         self.dummy = nn.Conv2d(in_channels=1, out_channels=1, kernel_size=(1, 2, 2), padding=0, stride=(1, 2, 2))
 
     def forward(self, x):
         x_small = x.clone()
@@ -55,14 +53,14 @@ class FPN_Gray(nn.Module):
         x = self.bn3(x)
         _, _, H1, W1 = x.size()
 
-        # ======= Branch network ======
+        ### ======= Branch network ======
         x_d1 = self.down(x)  # 128x128
         _, _, H2, W2 = x_d1.size()
         x_d2 = self.down(x_d1)  # 64x64
         _, _, H3, W3 = x_d2.size()
         x_d3 = self.down(x_d2)  # 32x32
 
-        # ======= First Branch =======
+        ### ======= First Branch =======
         res4_x = self.conv4(x)
         x = self.relu(res4_x)
         x = self.bn4(x)
@@ -75,7 +73,8 @@ class FPN_Gray(nn.Module):
         res7_x = self.conv7(x)
         x = self.relu(res7_x)
         x = self.bn7(x)
-        # ======= Second Branch ========
+
+        ### ======= Second Branch ========
         x_d1 = self.conv4(x_d1)
         x_d1 = self.relu(x_d1)
         x_d1 = self.bn4(x_d1)
@@ -90,7 +89,7 @@ class FPN_Gray(nn.Module):
         z1 = self.bn7(x_d1)
         x_d1 = self.upsample(z1, size=(H1, W1))
 
-        # ======= Third Branch ========
+        ### ======= Third Branch ========
         x_d2 = self.conv4(x_d2)
         x_d2 = self.relu(x_d2)
         x_d2 = self.bn4(x_d2)
@@ -106,7 +105,7 @@ class FPN_Gray(nn.Module):
         x_d2 = self.upsample(z2, size=(H2, W2))
         x_d2 = self.upsample(x_d2, size=(H1, W1))
 
-        # ======= Fourth Branch ========
+        ### ======= Fourth Branch ========
         x_d3 = self.conv4(x_d3)
         x_d3 = self.relu(x_d3)
         x_d3 = self.bn4(x_d3)
@@ -123,14 +122,14 @@ class FPN_Gray(nn.Module):
         x_d3 = self.upsample(x_d3, size=(H2, W2))
         x_d3 = self.upsample(x_d3, size=(H1, W1))
 
-        # ======= Concat maps ==========
+        ### ======= Concat maps ==========
         x = torch.cat((x, x_d1, x_d2, x_d3), 1)
 
         x = self.conv_smooth1(x)
         x = self.conv_smooth2(x)
         x = self.conv_smooth3(x)
        
-        # ============ Decoder ==========
+        ### ============ Decoder ==========
         x = self.convtrans1(x)
         x = self.relu(x+res6_x)
         x = self.convtrans2(x)
