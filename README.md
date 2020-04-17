@@ -37,6 +37,13 @@ Our dataset distribution:
 |   Testing  	|   885   	|         1058        	|    10    	|
 
 ## 3. Usage
+
+### Network Architecture
+Proposed CoroNet framework
+<p align="center">
+    <img src="./covid-demo.pdf" width=500px>
+</p>
+
 The training and testing scripts for the Feature Pyramid AutoEncoder (FPAE) and the Covid-19 Identification Network (CIN) are in [train_FPAE.py](train_FPAE.py), and [train_CIN.py](train_CIN.py). The shell script for training the FPAE models are given and can be ran as follow.
 
 ### Examples
