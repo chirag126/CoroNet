@@ -3,7 +3,7 @@
 **Disclaimer: The proposed CoroNet framework is at an initial research state and is meant for academic purposes for reproducibility and contributing to the ongoing COVID-19 research. The proposed network should not be used for self-diagnosis purposes. Stay HOME and Stay SAFE and during any problem consult the local authorities for help.**
 
 This repository contains source code necessary to reproduce some of the main results in our paper:
-Khobahi*, Agarwal*, Soltanalian. _CoroNet: A Deep Network Architecture for Semi-Supervised Task-Based Identification of COVID-19 from Chest X-ray Images_. [paper](https://www.medrxiv.org/content/10.1101/2020.04.14.20065722v1):
+Khobahi*, Agarwal*, Soltanalian. _CoroNet: A Deep Network Architecture for Semi-Supervised Task-Based Identification of COVID-19 from Chest X-ray Images_. [paper](https://www.medrxiv.org/content/10.1101/2020.04.14.20065722v1)
 
 **If you use this software, please consider citing:**
     
